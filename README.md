@@ -4,7 +4,7 @@ Proyek ini adalah sistem pakar berbasis web yang membantu pengguna menghitung pa
 
 ---
 
-## 🚀 Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 ### Backend
 - **Python**
@@ -19,7 +19,7 @@ Proyek ini adalah sistem pakar berbasis web yang membantu pengguna menghitung pa
 
 ---
 
-## 🧠 Fitur Utama
+## Fitur Utama
 
 - Sistem Pakar berbasis aturan (**Production Rules IF–THEN**)
 - Inference Engine (**Forward Chaining**)
@@ -35,5 +35,5 @@ Proyek ini adalah sistem pakar berbasis web yang membantu pengguna menghitung pa
 
 ---
 
-## 📁 Struktur Repository (Ringkas)
+## Struktur Repository (Ringkas)
 
