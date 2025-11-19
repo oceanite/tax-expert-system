@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+pydantic
+experta
+pyyaml
+python-multipart
