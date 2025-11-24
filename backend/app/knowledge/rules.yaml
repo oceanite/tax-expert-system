@@ -1,0 +1,20 @@
+ptkp:
+  TK0: 54000000
+  K0: 58500000
+  K1: 63000000
+  K2: 67500000
+  K3: 72000000
+
+allowance_per_child: 4500000
+
+tariffs:
+  - up_to: 60000000
+    rate: 0.05
+  - up_to: 250000000
+    rate: 0.15
+  - up_to: 500000000
+    rate: 0.25
+  - up_to: 5000000000
+    rate: 0.30
+  - up_to: null
+    rate: 0.35

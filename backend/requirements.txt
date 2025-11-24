@@ -4,3 +4,5 @@ pydantic
 experta
 pyyaml
 python-multipart
+httpx
+pytest
