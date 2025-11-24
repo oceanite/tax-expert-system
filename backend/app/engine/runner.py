@@ -1,39 +1,24 @@
-from .tax_engine import TaxEngine
-from app.core.config import settings
-import yaml
+from backend.app.engine.tax_engine import TaxEngine
 from pathlib import Path
+import yaml
 
-RULES_PATH = Path(settings.YAML_RULES_PATH)
+RULES_PATH = Path(__file__).parent.parent / "knowledge" / "rules.yaml"
 
-def load_rules_yaml(path=RULES_PATH):
-    if not path.exists():
-        return {}
-    with open(path, 'r') as f:
+
+def load_rules():
+    with open(RULES_PATH, "r") as f:
         return yaml.safe_load(f)
-    
 
-def run_tax_engine(initial_facts: dict):
-    rules = load_rules_yaml()
-    engine = TaxEngine(initial_facts=input_facts, rules=rules)
-    engine.reset()
-    engine.load_initial_facts()
-    engine.run()
 
-    ptkp = None
-    for fact in engine.facts:
-        try:
-            if 'ptkp' in fact:
-                ptkp = fact['ptkp']
-        except Exception:
-            pass
-    result = engine.results
+def run_engine(user_facts: dict):
+    rules = load_rules()
+    engine = TaxEngine(yaml_path=RULES_PATH, user_facts=user_facts)
 
-    final = {
-        'ptkp': ptkp if ptkp is not None else 0,
-        'pkp': result.get('pkp', 0),
-        'pajak': result.get('pajak', 0),
+    result = engine.run_engine()
+
+    return {
+        "input": user_facts,
+        "results": result.get("results", {}),
+        "explanation": result.get("explanation_trace", []),
+        "error": result.get("error")
     }
-    return {'result': final, 'explanation': engine.explanations}
-
-def run_tax_engine_sync(input_facts: dict):
-    return run_tax_engine(input_facts)
