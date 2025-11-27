@@ -11,14 +11,15 @@ def load_rules():
 
 
 def run_engine(user_facts: dict):
-    rules = load_rules()
     engine = TaxEngine(yaml_path=RULES_PATH, user_facts=user_facts)
-
     result = engine.run_engine()
+
+    results = result.get("results", {})
+    explanation = result.get("explanation_trace", [])
 
     return {
         "input": user_facts,
-        "results": result.get("results", {}),
-        "explanation": result.get("explanation_trace", []),
-        "error": result.get("error")
+        "results": results,
+        "explanation": explanation,
+        "error": results.get("error") if "error" in results else None
     }

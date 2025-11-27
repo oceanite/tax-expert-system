@@ -22,15 +22,12 @@ class TaxEngine(KnowledgeEngine):
     def load_rules_from_yaml(self):
         with open(self.yaml_path, 'r') as file:
             data = yaml.safe_load(file)
-
         self.loaded_rules = data.get("rules", [])
 
     def declare_initial_facts(self):
         for key, value in self.user_facts.items():
             self.declare(TaxFact(**{key: value}))
             self.add_explanation(f"[INPUT] {key} = {value}")
-
-    # ====================== TAX RATE RULES ======================
 
     @Rule(TaxFact(pkp=P(lambda x: x is not None and x <= 60000000)))
     def tariff_5(self):
@@ -57,48 +54,58 @@ class TaxEngine(KnowledgeEngine):
         self.results["tax_rate"] = 0.35
         self.add_explanation("Rule: PKP > 5B → Tarif 35%")
 
-    # ====================== NON TAXABLE CASES ======================
-
     @Rule(TaxFact(income_type='donation', related_to_work=False))
     def donation_exempt(self):
         self.results["taxable"] = False
         self.add_explanation("Rule: Donation not job-related → NON-TAXABLE")
 
-    @Rule(
-        TaxFact(income_type=MATCH.i, via_official_institution=True),
-        TEST(lambda i: i in ['zakat', 'infak', 'sedekah'])
-    )
+    @Rule(TaxFact(income_type=MATCH.i, via_official_institution=True),
+          TEST(lambda i: i in ['zakat', 'infak', 'sedekah']))
     def religious_exempt(self, i):
         self.results["taxable"] = False
-        self.add_explanation(f"Rule: {i} (official institution) → NON-TAXABLE")
+        self.add_explanation(f"Rule: {i} via official institution → NON-TAXABLE")
 
-    @Rule(
-        TaxFact(income_type=MATCH.i),
-        TEST(lambda i: i in ["salary","business","interest","dividend","royalty","rental","capital_gain","insurance"])
-    )
+    @Rule(TaxFact(income_type=MATCH.i),
+          TEST(lambda i: i in ['warisan', 'hibah_keluarga', 'hibah_badan_keagamaan', 'hibah_badan_pendidikan', 'hibah_badan_sosial']))
+    def inheritance_gift_exempt(self, i):
+        self.results["taxable"] = False
+        self.add_explanation(f"Rule: {i} → NON-TAXABLE (Pasal 4 Ayat 3)")
+
+    @Rule(TaxFact(income_type='beasiswa'))
+    def scholarship_exempt(self):
+        self.results["taxable"] = False
+        self.add_explanation("Rule: Beasiswa → NON-TAXABLE")
+
+    @Rule(TaxFact(income_type=MATCH.i),
+          TEST(lambda i: i in ["salary","business","interest","dividend","royalty","rental","capital_gain","insurance"]))
     def taxable_income(self, i):
         self.results["taxable"] = True
-        self.add_explanation(f"Rule: {i} termasuk objek Pajak → TAXABLE")
+        self.add_explanation(f"Rule: {i} termasuk objek pajak → TAXABLE")
 
-    # ====================== ERROR HANDLING ======================
+    @Rule(TaxFact(expense_type=MATCH.e),
+          TEST(lambda e: e in ['biaya_operasional','gaji_pegawai','bunga_pinjam','penyusutan','sumbangan_yang_disyaratkan_usaha']))
+    def deductible_expense(self, e):
+        self.results["deductible"] = True
+        self.add_explanation(f"Rule: {e} → dapat mengurangi penghasilan bruto")
 
-    @Rule(
-        TaxFact(pkp=MATCH.pkp),
-        TEST(lambda pkp: pkp < 0)
-    )
+    @Rule(TaxFact(expense_type=MATCH.e),
+          TEST(lambda e: e in ['dividen_dibagikan','biaya_pribadi','cadangan_non_izin','remunerasi_berlebihan']))
+    def non_deductible_expense(self, e):
+        self.results["deductible"] = False
+        self.add_explanation(f"Rule: {e} → tidak dapat mengurangi penghasilan bruto")
+
+    @Rule(TaxFact(pkp=MATCH.pkp), TEST(lambda pkp: pkp < 0))
     def invalid_pkp(self, pkp):
         self.results["error"] = "Invalid PKP input"
         self.add_explanation("ERROR: PKP tidak valid (<0)")
-
-    # ====================== FINAL CALCULATION ======================
-
+        
     @Rule()
     def compute_final_tax(self):
         if "taxable" in self.results and self.results["taxable"] is False:
             self.results["final_tax"] = 0
             self.add_explanation("Since NON-TAXABLE → final tax = 0")
         elif "tax_rate" in self.results and "pkp" in self.user_facts:
-            self.results["final_tax"] = self.user_facts["pkp"] * self.results["tax_rate"]
+            self.results["final_tax"] = self.user_facts["pkp"] * self.results.get("tax_rate", 0)
             self.add_explanation(f"Tax = PKP × rate → {self.user_facts['pkp']} × {self.results['tax_rate']}")
 
     def run_engine(self):

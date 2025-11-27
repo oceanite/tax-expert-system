@@ -65,3 +65,63 @@ rules:
     condition: "PKP < 0"
     action:
       error: "Invalid PKP input"
+
+  - id: R12
+    description: "Warisan bukan objek pajak"
+    condition: "income_type == 'warisan'"
+    action:
+      taxable: false
+
+  - id: R13
+    description: "Hibah keluarga atau badan keagamaan/pendidikan/sosial bukan objek pajak"
+    condition: "income_type in ['hibah_keluarga','hibah_badan_keagamaan','hibah_badan_pendidikan','hibah_badan_sosial']"
+    action:
+      taxable: false
+
+  - id: R14
+    description: "Beasiswa bukan objek pajak"
+    condition: "income_type == 'beasiswa'"
+    action:
+      taxable: false
+
+  - id: R15
+    description: "Biaya usaha yang dapat dikurangkan (deductible)"
+    condition: "expense_type in ['biaya_operasional','gaji_pegawai','bunga_pinjam','penyusutan','sumbangan_yang_disyaratkan_usaha']"
+    action:
+      deductible: true
+
+  - id: R16
+    description: "Biaya yang tidak dapat dikurangkan (non-deductible)"
+    condition: "expense_type in ['dividen_dibagikan','biaya_pribadi','cadangan_non_izin','remunerasi_berlebihan']"
+    action:
+      deductible: false
+
+  - id: R17
+    description: "Hitung net income jika deductible"
+    condition: "deductible == true"
+    action:
+      formula: "net_income = bruto_income - expense_amount"
+
+  - id: R18
+    description: "Hitung net income jika non-deductible"
+    condition: "deductible == false"
+    action:
+      formula: "net_income = bruto_income"
+
+  - id: R19
+    description: "Kredit pajak luar negeri tersedia"
+    condition: "foreign_tax_paid == true"
+    action:
+      eligible_tax_credit: true
+
+  - id: R20
+    description: "Tarif pajak untuk wajib pajak badan (corporate)"
+    condition: "taxpayer_type == 'badan'"
+    action:
+      corporate_tax_rate: 0.28
+
+  - id: R21
+    description: "Tarif badan setelah tahun pajak 2010"
+    condition: "taxpayer_type == 'badan' and year >= 2010"
+    action:
+      corporate_tax_rate: 0.25
