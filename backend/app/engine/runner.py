@@ -4,7 +4,7 @@ from .tax_engine import TaxEngine
 
 RULES_PATH = Path(__file__).parent.parent / "knowledge" / "rules.yaml"
 
-def run_engine(user_facts: dict):
+def run_tax_engine(user_facts: dict):
     engine = TaxEngine(rules_path=RULES_PATH)
     result = engine.evaluate(user_facts)
 
