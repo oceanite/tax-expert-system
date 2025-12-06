@@ -1,127 +1,230 @@
 rules:
 
+  # -------------------- PPh 21 --------------------
   - id: R1
-    description: "Tarif progresif lapisan pertama"
-    condition: "PKP <= 60000000"
+    description: "WP orang pribadi dalam negeri kena PPh21"
+    condition: "wp_type == 'orang_pribadi' and wp_residence == 'dalam_negeri'"
     action:
-      tax_rate: 0.05
+      taxable: true
+      formula: "calculate_pph21(gaji, tunjangan, bonus)"
 
+  # -------------------- PPh 23 --------------------
   - id: R2
-    description: "Tarif progresif lapisan kedua"
-    condition: "PKP > 60000000 and PKP <= 250000000"
+    description: "PPh23 atas dividen, bunga, royalti, sewa, jasa, hadiah"
+    condition: "income_type in ['dividen','bunga','royalti','sewa','jasa','hadiah']"
     action:
-      tax_rate: 0.15
+      taxable: true
+      formula: "calculate_pph23(income_amount)"
 
+  # -------------------- PPh 4(2) --------------------
   - id: R3
-    description: "Tarif progresif lapisan ketiga"
-    condition: "PKP > 250000000 and PKP <= 500000000"
+    description: "PPh4(2) final"
+    condition: "income_type in ['bunga_deposito','hadiah_undian','transaksi_saham','pengalihan_harta','jasa_konstruksi','real_estate']"
     action:
-      tax_rate: 0.25
+      taxable: true
+      final: true
+      formula: "calculate_pph4_2(income_amount)"
 
+  # -------------------- PPh 22 --------------------
   - id: R4
-    description: "Tarif progresif lapisan keempat"
-    condition: "PKP > 500000000 and PKP <= 5000000000"
+    description: "PPh22 impor API"
+    condition: "transaction_type == 'impor' and importer_api == true"
     action:
-      tax_rate: 0.30
+      formula: "tax = 0.025 * nilai_impor"
+      final: false
 
   - id: R5
-    description: "Tarif progresif lapisan kelima"
-    condition: "PKP > 5000000000"
+    description: "PPh22 impor non-API"
+    condition: "transaction_type == 'impor' and importer_api == false"
     action:
-      tax_rate: 0.35
+      formula: "tax = 0.075 * nilai_impor"
+      final: false
 
   - id: R6
+    description: "PPh22 pembelian DJPB/Bendahara/BUMN/BUMD"
+    condition: "buyer_type in ['DJPB','Bendahara','BUMN','BUMD']"
+    action:
+      formula: "tax = 0.015 * harga_pembelian"
+      final: false
+
+  - id: R7
+    description: "PPh22 penjualan hasil produksi kertas"
+    condition: "product_type == 'kertas'"
+    action:
+      formula: "tax = 0.001 * dpp_ppn"
+      final: false
+
+  - id: R8
+    description: "PPh22 penjualan hasil produksi semen"
+    condition: "product_type == 'semen'"
+    action:
+      formula: "tax = 0.0025 * dpp_ppn"
+      final: false
+
+  - id: R9
+    description: "PPh22 penjualan hasil produksi baja"
+    condition: "product_type == 'baja'"
+    action:
+      formula: "tax = 0.003 * dpp_ppn"
+      final: false
+
+  - id: R10
+    description: "PPh22 penjualan hasil produksi otomotif"
+    condition: "product_type == 'otomotif'"
+    action:
+      formula: "tax = 0.0045 * dpp_ppn"
+      final: false
+
+  - id: R11
+    description: "PPh22 transaksi melalui SIP rekanan"
+    condition: "transaction_through == 'SIP' and rekanan == true"
+    action:
+      formula: "tax = 0.005 * nilai_pembayaran"
+      final: false
+
+  - id: R12
+    description: "PPh22 emas perhiasan/batangan"
+    condition: "gold_type in ['perhiasan','batangan']"
+    action:
+      formula: "tax = 0.0025 * harga_jual"
+      final: false
+
+  - id: R13
+    description: "PPh22 penjualan pesawat pribadi > 20M"
+    condition: "product_type == 'pesawat_pribadi' and harga_jual > 20000000000"
+    action:
+      formula: "tax = 0.05 * harga_jual"
+      final: false
+
+  - id: R14
+    description: "PPh22 penjualan kapal pesiar > 10M"
+    condition: "product_type == 'kapal_pesiar' and harga_jual > 10000000000"
+    action:
+      formula: "tax = 0.05 * harga_jual"
+      final: false
+
+  - id: R15
+    description: "PPh22 penjualan rumah > 10M dan luas > 500m2"
+    condition: "product_type == 'rumah' and harga_jual > 10000000000 and luas_bangunan > 500"
+    action:
+      formula: "tax = 0.05 * harga_jual"
+      final: false
+
+  - id: R16
+    description: "PPh22 penjualan apartemen/kondominium > 10M atau luas > 400m2"
+    condition: "product_type in ['apartemen','kondominium'] and (harga_jual > 10000000000 or luas_bangunan > 400)"
+    action:
+      formula: "tax = 0.05 * harga_jual"
+      final: false
+
+  - id: R17
+    description: "PPh22 kendaraan roda 4 > 5M dan silinder > 3000cc"
+    condition: "product_type == 'kendaraan' and harga_jual > 5000000000 and kapasitas_silinder > 3000"
+    action:
+      formula: "tax = 0.05 * harga_jual"
+      final: false
+
+  - id: R18
+    description: "PPh22 pembelian bahan industri/ekspor pedagang pengumpul"
+    condition: "transaction_type == 'pembelian_bahan' and seller_type == 'pedagang_pengumpul'"
+    action:
+      formula: "tax = 0.0025 * harga_pembelian"
+      final: false
+
+  - id: R19
+    description: "PPh22 impor kedelai/gandum/tepung terigu API"
+    condition: "transaction_type == 'impor' and product_type in ['kedelai','gandum','tepung_terigu'] and importer_api == true"
+    action:
+      formula: "tax = 0.005 * nilai_impor"
+      final: false
+
+  # -------------------- PPh 15 --------------------
+  - id: R20
+    description: "PPh15 charter penerbangan dalam negeri"
+    condition: "category == 'charter_penerbangan_dalam_negeri'"
+    action:
+      formula: "tax = 0.018 * peredaran_bruto"
+      final: true
+
+  - id: R21
+    description: "PPh15 pelayaran dalam negeri"
+    condition: "category == 'pelayaran_dalam_negeri'"
+    action:
+      formula: "tax = 0.012 * peredaran_bruto"
+      final: true
+
+  - id: R22
+    description: "PPh15 pelayaran/penerbangan luar negeri"
+    condition: "category in ['pelayaran_luar_negeri','penerbangan_luar_negeri']"
+    action:
+      formula: "tax = 0.0264 * peredaran_bruto"
+      final: true
+
+  - id: R23
+    description: "PPh15 kantor perwakilan dagang asing"
+    condition: "category == 'kantor_perwakilan_asing'"
+    action:
+      formula: "tax = 0.0044 * nilai_ekspor_bruto"
+      final: true
+
+  - id: R24
+    description: "PPh15 jasa maklon mainan anak"
+    condition: "category == 'jasa_maklon_mainan'"
+    action:
+      formula: "tax = 0.021 * biaya_pembuatan"
+      final: true
+
+  # -------------------- PPN --------------------
+  - id: R25
+    description: "PPN untuk PKP"
+    condition: "wp_type == 'PKP'"
+    action:
+      formula: "tax = 0.11 * harga_bkp_jkp"
+      final: true
+
+  # -------------------- PPnBM --------------------
+  - id: R26
+    description: "PPnBM atas barang mewah"
+    condition: "barang_type == 'mewah'"
+    action:
+      formula: "tax = harga_barang * tarif_ppnbm"
+      final: true
+
+  # -------------------- PPh Badan --------------------
+  - id: R27
+    description: "PPh Badan atas penghasilan kena pajak"
+    condition: "taxpayer_type == 'badan' and income_type not in ['bantuan','warisan','hibah','natura_tertentu']"
+    action:
+      formula: "calculate_pph_badan(income_amount)"
+      final: false
+
+  # -------------------- Pengecualian --------------------
+  - id: R28
     description: "Sumbangan bukan objek pajak"
     condition: "income_type == 'donation' and related_to_work == false"
     action:
       taxable: false
 
-  - id: R7
+  - id: R29
     description: "Zakat/infak/sedekah melalui lembaga resmi bukan objek pajak"
-    condition: "income_type in ['zakat', 'infak', 'sedekah'] and via_official_institution == true"
+    condition: "income_type in ['zakat','infak','sedekah'] and via_official_institution == true"
     action:
       taxable: false
 
-  - id: R8
-    description: "Penghasilan selain kategori pengecualian dianggap kena pajak"
-    condition: "income_type in ['salary','business','interest','dividend','royalty','rental','capital_gain','insurance']"
-    action:
-      taxable: true
-
-  - id: R9
-    description: "Jika bukan objek pajak maka pajak final = 0"
-    condition: "taxable == false"
-    action:
-      final_tax: 0
-
-  - id: R10
-    description: "Jika kena pajak, hitung final tax"
-    condition: "taxable == true"
-    action:
-      formula: "PKP * tax_rate"
-
-  - id: R11
-    description: "Validasi input PKP"
-    condition: "PKP < 0"
-    action:
-      error: "Invalid PKP input"
-
-  - id: R12
+  - id: R30
     description: "Warisan bukan objek pajak"
     condition: "income_type == 'warisan'"
     action:
       taxable: false
 
-  - id: R13
+  - id: R31
     description: "Hibah keluarga atau badan keagamaan/pendidikan/sosial bukan objek pajak"
     condition: "income_type in ['hibah_keluarga','hibah_badan_keagamaan','hibah_badan_pendidikan','hibah_badan_sosial']"
     action:
       taxable: false
 
-  - id: R14
+  - id: R32
     description: "Beasiswa bukan objek pajak"
     condition: "income_type == 'beasiswa'"
     action:
       taxable: false
-
-  - id: R15
-    description: "Biaya usaha yang dapat dikurangkan (deductible)"
-    condition: "expense_type in ['biaya_operasional','gaji_pegawai','bunga_pinjam','penyusutan','sumbangan_yang_disyaratkan_usaha']"
-    action:
-      deductible: true
-
-  - id: R16
-    description: "Biaya yang tidak dapat dikurangkan (non-deductible)"
-    condition: "expense_type in ['dividen_dibagikan','biaya_pribadi','cadangan_non_izin','remunerasi_berlebihan']"
-    action:
-      deductible: false
-
-  - id: R17
-    description: "Hitung net income jika deductible"
-    condition: "deductible == true"
-    action:
-      formula: "net_income = bruto_income - expense_amount"
-
-  - id: R18
-    description: "Hitung net income jika non-deductible"
-    condition: "deductible == false"
-    action:
-      formula: "net_income = bruto_income"
-
-  - id: R19
-    description: "Kredit pajak luar negeri tersedia"
-    condition: "foreign_tax_paid == true"
-    action:
-      eligible_tax_credit: true
-
-  - id: R20
-    description: "Tarif pajak untuk wajib pajak badan (corporate)"
-    condition: "taxpayer_type == 'badan'"
-    action:
-      corporate_tax_rate: 0.28
-
-  - id: R21
-    description: "Tarif badan setelah tahun pajak 2010"
-    condition: "taxpayer_type == 'badan' and year >= 2010"
-    action:
-      corporate_tax_rate: 0.25
