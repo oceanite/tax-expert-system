@@ -1,7 +1,6 @@
 fastapi
 uvicorn[standard]
 pydantic
-experta-py3
 pyyaml
 python-multipart
 httpx

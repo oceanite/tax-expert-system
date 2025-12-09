@@ -1,0 +1,276 @@
+rules_perpajakan:
+  deskripsi: "Konfigurasi Tarif dan PTKP untuk PPh 21 dan PPh 23"
+
+  # =======================================================
+  # A. PPH PASAL 21
+  # =======================================================
+  pph_pasal_21:
+    ptkp_tahunan:
+      # --- Status TK (Tidak Kawin) ---
+      TK/0: 54000000   # Diri sendiri
+      TK/1: 58500000   # + 1 Tanggungan
+      TK/2: 63000000   # + 2 Tanggungan
+      TK/3: 67500000   # + 3 Tanggungan
+      
+      # --- Status K (Kawin) ---
+      K/0: 58500000    # Diri sendiri + Istri
+      K/1: 63000000    # + 1 Tanggungan
+      K/2: 67500000    # + 2 Tanggungan
+      K/3: 72000000    # + 3 Tanggungan
+      
+    # PERBAIKAN UTAMA: Indentasi 'lapisan' masuk ke dalam 'tarif_progresif'
+    tarif_progresif:
+      lapisan:
+        - batas_atas: 60000000
+          persentase: 0.05
+        - batas_atas: 250000000
+          persentase: 0.15
+        - batas_atas: 500000000
+          persentase: 0.25
+        - batas_atas: 5000000000
+          persentase: 0.30
+        - batas_atas: null
+          persentase: 0.35
+
+    perhitungan_pegawai_tetap:
+      pengurang_wajib:
+        biaya_jabatan:
+          persentase: 0.05
+          maksimum_bulanan: 500000
+
+  # =======================================================
+  # B. PPH PASAL 23
+  # =======================================================
+  pph_pasal_23:
+    tarif_dan_objek:
+      # PERBAIKAN: Nama item disamakan persis dengan logic di engine.py
+      tarif_15_persen:
+        - dividen
+        - bunga
+        - royalti
+        - hadiah
+      
+      tarif_2_persen:
+        - sewa
+        - jasa_teknik
+        - jasa_manajemen
+        - jasa_konsultan
+        - jasa_lainnya
+
+
+  pph_pasal_4_ayat_2:
+    deskripsi: "Pajak Penghasilan bersifat Final atas penghasilan tertentu"
+    
+    # List ini akan digunakan sebagai opsi pilihan (dropdown) untuk user
+    tarif_final_list:
+      # --- OBLIGASI/SURAT UTANG (WP DN = Dalam Negeri, WP LN = Luar Negeri) ---
+      - jenis: "Bunga Obligasi/SUN/Obligasi Daerah (WP DN & BUT)"
+        tarif: 0.15
+      - jenis: "Bunga Obligasi (WP LN)"
+        tarif: 0.20
+      - jenis: "Bunga Obligasi (WP DN & BUT - Tarif Rendah)"
+        tarif: 0.10
+      - jenis: "Diskonto SPN (WP DN & BUT)"
+        tarif: 0.20
+      - jenis: "Diskonto SPN (WP LN)"
+        tarif: 0.20
+      - jenis: "Bunga/Diskonto Obligasi dan Surat Berharga Negara (SBN) - 0%"
+        tarif: 0.0
+      
+      # --- TANAH DAN BANGUNAN ---
+      - jenis: "Pengalihan Hak atas Tanah dan/atau Bangunan (Umum 2.5%)"
+        tarif: 0.025
+      - jenis: "Pengalihan Rumah Sederhana/Rusun Sederhana (Developer 1%)"
+        tarif: 0.01
+      - jenis: "Pengalihan Tanah/Bangunan kepada Pemerintah/BUMN/BUMD (0%)"
+        tarif: 0.0
+      - jenis: "Persewaan Tanah dan/atau Bangunan"
+        tarif: 0.10
+        
+      # --- PERBANKAN & SIMPANAN (Non-DHE / Umum) ---
+      - jenis: "Bunga Tabungan/Diskonto Umum (Non-DHE), Diskonto SBI, Jasa Giro"
+        tarif: 0.20
+      - jenis: "Bunga Simpanan/Tabungan Luar Negeri (melalui Bank di Indonesia)"
+        tarif: 0.20
+      - jenis: "Bunga Deposito/Tabungan, Diskonto SBI, Jasa Giro (Pengecualian Tertentu 0%)"
+        tarif: 0.0
+        
+      # --- DHE IDR ---
+      - jenis: "Bunga Deposito DHE IDR Tenor 1 Bulan"
+        tarif: 0.075 
+      - jenis: "Bunga Deposito DHE IDR Tenor 3 Bulan"
+        tarif: 0.05 
+      - jenis: "Bunga Deposito DHE IDR Tenor 6 Bulan atau lebih"
+        tarif: 0.0 
+
+      # --- DHE USD ---
+      - jenis: "Bunga Deposito DHE USD Tenor 1 Bulan"
+        tarif: 0.10 
+      - jenis: "Bunga Deposito DHE USD Tenor 3 Bulan"
+        tarif: 0.075
+      - jenis: "Bunga Deposito DHE USD Tenor 6 Bulan"
+        tarif: 0.025
+      - jenis: "Bunga Deposito DHE USD Tenor lebih dari 6 Bulan"
+        tarif: 0.0
+        
+      # --- HADIAH UNDIAN ---
+      - jenis: "Hadiah Undian"
+        tarif: 0.25
+        
+      # --- TRANSAKSI SAHAM & BURSA ---
+      - jenis: "Penjualan Saham di Bursa Efek (Bukan Saham Pendiri)"
+        tarif: 0.001
+      - jenis: "Penjualan Saham di Bursa Efek (Saham Pendiri)"
+        tarif: 0.005
+      - jenis: "Penjualan Saham Perusahaan Modal Ventura (Tidak di Bursa)"
+        tarif: 0.001
+
+      # --- JASA KONSTRUKSI (Pelaksana/Terintegrasi) ---
+      - jenis: "Konstruksi: Pelaksana (Kualifikasi Kecil / Orang Perseorangan)"
+        tarif: 0.0175
+      - jenis: "Konstruksi: Pelaksana (Non-Kualifikasi Kecil / Badan Usaha)"
+        tarif: 0.0265
+      - jenis: "Konstruksi: Pelaksana (Tidak Bersertifikat)"
+        tarif: 0.04
+      - jenis: "Konstruksi: Terintegrasi (Bersertifikat Badan Usaha)"
+        tarif: 0.0265
+      - jenis: "Konstruksi: Terintegrasi (Tidak Bersertifikat Badan Usaha)"
+        tarif: 0.04
+        
+      # --- JASA KONSTRUKSI (Konsultansi) ---
+      - jenis: "Konsultansi Konstruksi (Bersertifikat Badan Usaha/Kompetensi Kerja)"
+        tarif: 0.035
+      - jenis: "Konsultansi Konstruksi (Tidak Bersertifikat)"
+        tarif: 0.06
+
+      # --- KOPERASI ---
+      - jenis: "Bunga Simpanan Koperasi (s.d. Rp240.000 per Bulan)"
+        tarif: 0.0
+      - jenis: "Bunga Simpanan Koperasi (di atas Rp240.000 per Bulan)"
+        tarif: 0.10
+
+      # --- DIVIDEN ORANG PRIBADI ---
+      - jenis: "Dividen Diterima WP Orang Pribadi Dalam Negeri"
+        tarif: 0.10
+        
+      # --- UMKM & IKN ---
+      - jenis: "UMKM PPh Final 0.5% (PP 23/PP 55)"
+        tarif: 0.005
+      - jenis: "UMKM OP Peredaran Bruto s.d 500 Juta (PP 55 - 0%)"
+        tarif: 0.0
+      - jenis: "UMKM di IKN (Fasilitas PPh Final 0%)"
+        tarif: 0.0
+        
+      # --- LPI ---
+      - jenis: "Kerja Sama dengan Lembaga Pengelola Investasi (LPI)"
+        tarif: 0.075
+
+  pph_pasal_22:
+    deskripsi: "Pajak Penghasilan sehubungan dengan Kegiatan Impor dan Kegiatan Usaha tertentu"
+    
+    # List ini akan digunakan sebagai opsi pilihan (dropdown) untuk user
+    tarif_pph22_list:
+      # --- IMPOR (Ditjen Bea Cukai) ---
+      - jenis: "Impor yang dipungut Ditjen Bea dan Cukai (Tarif 10%)"
+        tarif: 0.10
+      - jenis: "Impor yang dipungut Ditjen Bea dan Cukai (Tarif 7.5%)"
+        tarif: 0.075
+      - jenis: "Impor yang dipungut Ditjen Bea dan Cukai (Tarif 0.5%)"
+        tarif: 0.005
+      - jenis: "Impor (Importir memiliki API)"
+        tarif: 0.025
+      - jenis: "Impor (Importir tidak memiliki API)"
+        tarif: 0.075
+
+      # --- PEMBELIAN/PUNGUTAN BADAN USAHA TERTENTU ---
+      - jenis: "Pembelian barang dan/atau bahan oleh BUMN/Badan Usaha Tertentu"
+        tarif: 0.015
+      - jenis: "Pembelian Komoditas Tambang Batubara/Mineral Logam/Bukan Logam (dari pemegang IUP)"
+        tarif: 0.015
+      - jenis: "Pembelian Bahan Kehutanan/Perkebunan/Pertanian/Peternakan/Perikanan (Belum Manufaktur)"
+        tarif: 0.0025
+
+      # --- PENJUALAN PRODUKSI (Industri/Produsen) ---
+      - jenis: "Penjualan hasil produksi: Industri Semen"
+        tarif: 0.0025
+      - jenis: "Penjualan hasil produksi: Industri Baja"
+        tarif: 0.0030
+      - jenis: "Penjualan hasil produksi: Industri Otomotif (kepada distributor)"
+        tarif: 0.0045
+      - jenis: "Penjualan hasil produksi: Industri Farmasi"
+        tarif: 0.0030
+      - jenis: "Penjualan hasil produksi: Industri Kertas"
+        tarif: 0.0010
+      - jenis: "Penjualan Kendaraan Bermotor (ATPM/APM/Importir Umum)"
+        tarif: 0.0045
+      - jenis: "Penjualan Emas Batangan"
+        tarif: 0.0025
+      - jenis: "Penjualan Pelumas oleh Importir/Produsen"
+        tarif: 0.003
+      - jenis: "Penjualan Pulsa dan Kartu Perdana (Penyelenggara Distribusi Tingkat II)"
+        tarif: 0.005
+
+      # --- ENERGI & GAS (NON-FINAL) ---
+      - jenis: "Penjualan BBM oleh Pertamina/Anak Perusahaan (Non-Final)"
+        tarif: 0.003
+      - jenis: "Penjualan BBM oleh Badan Usaha selain Pertamina (Non-Final)"
+        tarif: 0.003
+      - jenis: "Penjualan BBG oleh Produsen/Importir (Non-Final)"
+        tarif: 0.003
+
+      # --- ENERGI & GAS (FINAL) ---
+      - jenis: "Penjualan BBM oleh Pertamina/Anak Perusahaan (Final)"
+        tarif: 0.0025
+      - jenis: "Penjualan BBM oleh Badan Usaha selain Pertamina (Final)"
+        tarif: 0.003
+      - jenis: "Penjualan BBG oleh Produsen/Importir (Final)"
+        tarif: 0.003
+
+      # --- SI PENGADAAN & BARANG SANGAT MEWAH ---
+      - jenis: "Transaksi melalui SI Pengadaan (Sistem Informasi Pengadaan)"
+        tarif: 0.005
+      - jenis: "Penjualan Barang Sangat Mewah: Pesawat/Kapal Pesiar/Yacht/Kendaraan Bermotor"
+        tarif: 0.05
+      - jenis: "Penjualan Barang Sangat Mewah: Rumah/Apartemen/Kondominium"
+        tarif: 0.01
+
+      # --- ASET KRIPTO & EKSPOR ---
+      - jenis: "Ekspor Komoditas Tambang Batubara/Mineral Logam/Bukan Logam"
+        tarif: 0.015
+      - jenis: "Penghasilan Aset Kripto (Dipungut Penyelenggara/Setor Sendiri)"
+        tarif: 0.002
+      - jenis: "Penghasilan Aset Kripto (Setor Sendiri - Umum)"
+        tarif: 0.001
+
+  pph_pasal_15:
+    deskripsi: "Pajak Penghasilan untuk Industri Pelayaran, Penerbangan, dan Pihak Tertentu"
+    
+    tarif_pph15_list:
+      # --- PELAYARAN DALAM NEGERI (1.2%) ---
+      - jenis: "Pelayaran DN: Pengangkutan orang/barang termasuk penyewaan kapal"
+        tarif: 0.012
+      - jenis: "Pelayaran DN: Imbalan yang dibayarkan/terutang ke perusahaan pelayaran DN"
+        tarif: 0.012
+
+      # --- PELAYARAN/PENERBANGAN LUAR NEGERI (2.64%) ---
+      - jenis: "Pelayaran/Penerbangan LN: Pengangkutan orang/barang (Non-Charter)"
+        tarif: 0.0264
+      - jenis: "Pelayaran/Penerbangan LN: Charter Kapal/Pesawat melalui BUT di Indonesia"
+        tarif: 0.0264
+
+      # --- KANTOR PERWAKILAN DAGANG ASING (0.44%) ---
+      - jenis: "Kantor Perwakilan Dagang Asing (Representative Office) di Indonesia"
+        tarif: 0.0044
+
+      # --- MAKLON INTERNASIONAL (2.1%) ---
+      - jenis: "Maklon Internasional (Produksi Mainan Anak-anak)"
+        tarif: 0.021
+
+      # --- PENERBANGAN DALAM NEGERI (1.8%) ---
+      - jenis: "Charter Pesawat Udara (Perusahaan Penerbangan Dalam Negeri)"
+        tarif: 0.018
+
+  ppn:
+    deskripsi: "Pajak Pertambahan Nilai atas Penyerahan Barang/Jasa Kena Pajak"
+    tarif: 0.11 # 11% sesuai UU HPP
+    
