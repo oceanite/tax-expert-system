@@ -1,37 +1,54 @@
+// Hitung.jsx
+
 import { useNavigate } from 'react-router-dom';
-import { Calculator, Briefcase, Building, Ship, ShoppingCart, Percent } from 'lucide-react';
+// Ikon yang digunakan
+import { Calculator, Briefcase, Building, Ship, ShoppingCart, Percent, ArrowRight } from 'lucide-react';
 
 const taxes = [
-  { id: 'pph21', name: 'PPh Pasal 21', desc: 'Gaji Karyawan, Pesangon', icon: <Briefcase /> },
-  { id: 'pph23', name: 'PPh Pasal 23', desc: 'Jasa, Sewa Aset, Dividen', icon: <Percent /> },
-  { id: 'pph42', name: 'PPh Pasal 4(2)', desc: 'Sewa Tanah/Bangunan, Konstruksi', icon: <Building /> },
-  { id: 'pph22', name: 'PPh Pasal 22', desc: 'Impor, Bendahara, Barang Mewah', icon: <Calculator /> },
-  { id: 'pph15', name: 'PPh Pasal 15', desc: 'Pelayaran & Penerbangan', icon: <Ship /> },
-  { id: 'ppn',   name: 'PPN',           desc: 'Pertambahan Nilai (11%)', icon: <ShoppingCart /> },
+  { id: 'pph21', name: 'PPh Pasal 21', desc: 'Gaji Karyawan, Pesangon', icon: <Briefcase />, color: 'blue' },
+  { id: 'pph23', name: 'PPh Pasal 23', desc: 'Jasa, Sewa Aset, Dividen', icon: <Percent />, color: 'green' },
+  { id: 'pph42', name: 'PPh Pasal 4(2)', desc: 'Sewa Tanah/Bangunan, Konstruksi', icon: <Building />, color: 'purple' },
+  { id: 'pph22', name: 'PPh Pasal 22', desc: 'Impor, Bendahara, Barang Mewah', icon: <Calculator />, color: 'orange' },
+  { id: 'pph15', name: 'PPh Pasal 15', desc: 'Pelayaran & Penerbangan', icon: <Ship />, color: 'yellow' },
+  { id: 'ppn',   name: 'PPN',          desc: 'Pertambahan Nilai (11%)', icon: <ShoppingCart />, color: 'pink' },
 ];
 
 const Hitung = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="container mx-auto p-8">
-      <h2 className="text-2xl font-bold mb-8 text-center">Pilih Jenis Pajak</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="section-title">
+      <h2 className="header-hitung">Pilih Jenis Pajak</h2>
+        
+      {/* Menggunakan tax-list untuk tata letak vertikal seperti Beranda */}
+      <div className="tax-list tax-list-hitung">
         {taxes.map((tax) => (
-          <div 
+          <a 
             key={tax.id}
-            onClick={() => navigate(`/hitung/${tax.id}`)}
-            className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100 flex flex-col items-center text-center hover:border-blue-400"
+            onClick={(e) => {
+               e.preventDefault(); // Mencegah navigasi ganda jika ada elemen <a> lain di dalamnya
+               navigate(`/hitung/${tax.id}`);
+            }}
+            href={`/hitung/${tax.id}`}
+            // Menggunakan class tax-card + class warna
+            className={`tax-card ${tax.color} tax-card-hitung`}
           >
-            <div className="bg-blue-100 p-4 rounded-full text-blue-600 mb-4">
+            {/* Icon */}
+            <div className="icon">
               {tax.icon}
             </div>
-            <h3 className="text-xl font-bold mb-2">{tax.name}</h3>
-            <p className="text-gray-500 text-sm">{tax.desc}</p>
-            <button className="mt-4 text-blue-600 font-semibold text-sm hover:underline">
-              Mulai Hitung &rarr;
-            </button>
-          </div>
+            {/* Text */}
+            <div className="text">
+              <h3>{tax.name}</h3>
+              <p>{tax.desc}</p>
+              {/* Mengganti tombol dengan teks link sederhana
+              <p className="mt-2 text-blue-600 font-semibold text-sm hover:underline">
+                Mulai Hitung &rarr;
+              </p> */}
+            </div>
+            {/* Arrow */}
+            <div className="arrow"><ArrowRight size={22} /></div>
+          </a>
         ))}
       </div>
     </div>
