@@ -59,12 +59,12 @@
 .hero-title {
   font-size: 72px;
   font-weight: bold;
-  color: black; /* slate-900 */
+  color: black;
   margin-top: 24px;
 }
 
 .hero-title span {
-  color: #0d6efd; /* blue-600 */
+  color: #0d6efd;
 }
 
 .hero-description {
@@ -80,12 +80,12 @@
 .hero-buttons {
   display: flex;
   flex-direction: column;
-  gap: 14px; /* jarak antar tombol */
-  margin-top: 48px; /* jarak dari konten hero sebelumnya */
+  gap: 14px; 
+  margin-top: 48px; 
 }
 
 .hero-buttons a {
-  max-width: 260px; /* 🔧 ubah angka ini untuk mengatur lebar tombol */
+  max-width: 260px; 
   width: 100%;
   margin: 0 auto;
 }
@@ -157,7 +157,6 @@
   gap: 24px;
 }
 
-/* Card style */
 .tax-card {
   width: 90%;
   max-width: 800px;
@@ -173,7 +172,6 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
 
-/* Warna sesuai gambar */
 .tax-card.blue {
   background: #eef4ff;
   border-left-color: #2563eb;
@@ -189,7 +187,21 @@
   border-left-color: #8b5cf6;
 }
 
-/* Icon */
+.tax-card.orange {
+  background: #fff7ed;
+  border-left-color: #f97316;
+}
+
+.tax-card.yellow {
+  background: #fffbeb;
+  border-left-color: #eab308;
+}
+
+.tax-card.pink {
+  background: #fdf2f8;
+  border-left-color: #ec4899;
+}
+
 .tax-card .icon {
   font-size: 30px;
   background: white;
@@ -200,7 +212,6 @@
   align-items: center;
 }
 
-/* Text */
 .tax-card h3 {
   font-size: 18px;
   font-weight: bold;
@@ -215,26 +226,38 @@
   line-height: 1.5;
 }
 
-/* Arrow */
 .tax-card .arrow {
   opacity: 0;
   transform: translateX(-5px);
   font-size: 22px;
   transition: 0.25s ease;
 }
-/* Hover efek */
-.tax-card:hover {
+
+/* .tax-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
+} */
 
-.tax-card:hover .arrow {
+/* .tax-card:hover .arrow {
   opacity: 1;
   transform: translateX(0);
-}
+} */
 
 .tax-card .text {
   max-width: 700px;
   text-align: left;
   margin: 0 10px;
+}
+
+.main-footer {
+  border-top: 1px solid #e2e8f0; 
+  padding: 24px 0; 
+  width: 100%;
+  text-align: center;
+  margin-top: 36px; 
+}
+
+.footer-text {
+  color: gray; 
+  font-size: 14px;
 }

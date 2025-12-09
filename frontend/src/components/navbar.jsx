@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <h1 className="logo">TaxExpert ⚖️</h1>
+        <h1 className="logo">Pajakuy ⚖️</h1>
         <div className="nav-menu">
           <Link to="/" className={isActive("/")}>Beranda</Link>
           <Link to="/hitung" className={isActive("/hitung")}>Kalkulator Pajak</Link>

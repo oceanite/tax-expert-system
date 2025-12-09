@@ -13,7 +13,7 @@ const Beranda = () => {
           Biar urusan negara gak nge-<span>ghosting</span>.
         </p>
         <div className="hero-buttons">
-          <Link to="hitung" className="btn-primary-hero">
+          <Link to="/hitung" className="btn-primary-hero">
             <span className="icon">🧮</span>
             Mulai Hitung Pajak
           </Link>
@@ -64,11 +64,47 @@ const Beranda = () => {
         </div>
         <div className="arrow">→</div>
       </div>
-    </div>
 
-            
-            {/* Tambahkan penjelasan PPh 22, 15, dan PPN disini */}
+    <div className="tax-card orange">
+        <div className="icon">💰</div>
+        <div className="text">
+          <h3>PPh Pasal 22</h3>
+          <p>
+            Pajak penghasilan yang dipungut atas transaksi perdagangan barang tertentu, terutama pada impor dan penjualan kepada pemerintah.
+          </p>
+        </div>
+        <div className="arrow">→</div>
+      </div>
+
+      <div className="tax-card yellow">
+        <div className="icon">🚢</div>
+        <div className="text">
+          <h3>PPh Pasal 15</h3>
+          <p>
+            Pajak penghasilan dengan perhitungan khusus untuk sektor usaha tertentu seperti pelayaran, penerbangan, dan perusahaan dagang asing.
+          </p>
+        </div>
+        <div className="arrow">→</div>
+      </div>
+
+      <div className="tax-card pink">
+        <div className="icon">🛍️</div>
+        <div className="text">
+          <h3>PPN</h3>
+          <p>
+            Pajak atas konsumsi barang dan jasa dalam negeri yang dibebankan kepada konsumen akhir.
+          </p>
+        </div>
+        <div className="arrow">→</div>
+      </div>
           </div>
+          </div>
+
+      <footer className="main-footer">
+            <p className="footer-text">
+              © 2025 Pajakuy - Sistem Pakar Pajak Indonesia. Semua hak dilindungi.
+            </p>
+      </footer>
         </>
       );
     };
