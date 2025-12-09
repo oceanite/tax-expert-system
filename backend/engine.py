@@ -245,7 +245,7 @@ class PphKalkulatorEngine(KnowledgeEngine):
             gaji_bersih_bulanan=math.floor(gaji_bersih)
         )
         self.declare(self.output_result)
-
+        
     # --- PPH 23 RULES ---
     @Rule(AS.fact << Pph23Fact(jumlah_bruto=P(lambda x: x > 0)))
     def hitung_pph23(self, fact):

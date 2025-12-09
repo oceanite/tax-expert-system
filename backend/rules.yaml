@@ -43,7 +43,6 @@ rules_perpajakan:
   # =======================================================
   pph_pasal_23:
     tarif_dan_objek:
-      # PERBAIKAN: Nama item disamakan persis dengan logic di engine.py
       tarif_15_persen:
         - dividen
         - bunga
