@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Import Komponen Layout
 import Navbar from './components/navbar';
+import ScrollToTop from './components/ScrollToTop';
 
 // Import Halaman Utama
 import Beranda from './pages/beranda';
@@ -20,6 +21,7 @@ import FormPpn from './pages/forms/formppn';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       {/* Container utama dengan min-height agar footer (jika ada) turun ke bawah */}
       <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
         
