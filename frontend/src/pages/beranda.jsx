@@ -1,31 +1,76 @@
+import { Link } from "react-router-dom";
+import "../index.css";
+
 const Beranda = () => {
   return (
-    <div className="container mx-auto p-8 max-w-4xl">
-      <h2 className="text-3xl font-bold mb-6 text-center text-slate-800">Selamat Datang di Sistem Pakar Pajak</h2>
-      <p className="text-gray-600 mb-8 text-center">
-        Platform ini membantu Anda menghitung berbagai jenis pajak penghasilan dan pertambahan nilai sesuai peraturan terbaru di Indonesia.
+    <>
+      <section className="hero-container">
+        <h1 className="hero-title">
+          Sistem Pakar <span>Pajak Indonesia</span>
+        </h1>
+
+        <p className="hero-description">
+          Biar urusan negara gak nge-<span>ghosting</span>.
+        </p>
+        <div className="hero-buttons">
+          <Link to="hitung" className="btn-primary-hero">
+            <span className="icon">🧮</span>
+            Mulai Hitung Pajak
+          </Link>
+
+          <Link to="/referensi" className="btn-outline-hero">
+            <span className="icon">📄</span>
+            Pelajari Lebih Lanjut
+          </Link>
+        </div>
+      </section>
+    
+    <div className="section-title">
+      <h2>Jenis-Jenis Pajak</h2>
+      <p>
+        Pelajari berbagai jenis pajak yang berlaku di Indonesia dan cara menghitungnya dengan benar.
       </p>
 
-      <div className="space-y-6">
-        <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-          <h3 className="font-bold text-lg mb-2">PPh Pasal 21</h3>
-          <p className="text-sm text-gray-700">Pajak atas penghasilan berupa gaji, upah, honorarium, tunjangan, dan pembayaran lain yang diterima Wajib Pajak Orang Pribadi dalam negeri sehubungan dengan pekerjaan atau jabatan[cite: 4].</p>
+      <div className="tax-list">
+      <div className="tax-card blue">
+        <div className="icon">🎁</div>
+        <div className="text">
+          <h3>PPh Pasal 21</h3>
+          <p>
+            Pajak atas penghasilan berupa gaji, upah, honorarium, tunjangan, dan pembayaran lain yang diterima Wajib Pajak Orang Pribadi dalam negeri sehubungan dengan pekerjaan atau jabatan.
+          </p>
         </div>
-        
-        <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-          <h3 className="font-bold text-lg mb-2">PPh Pasal 23</h3>
-          <p className="text-sm text-gray-700">Pajak atas penghasilan dari modal, penyerahan jasa, atau hadiah dan penghargaan, selain yang telah dipotong PPh Pasal 21[cite: 7].</p>
-        </div>
+        <div className="arrow">→</div>
+      </div>
 
-        <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
-          <h3 className="font-bold text-lg mb-2">PPh Final (Pasal 4 ayat 2)</h3>
-          <p className="text-sm text-gray-700">Pajak penghasilan yang bersifat final atas jenis penghasilan tertentu seperti sewa tanah/bangunan, jasa konstruksi, dan hadiah undian[cite: 15].</p>
+      <div className="tax-card green">
+        <div className="icon">🎁</div>
+        <div className="text">
+          <h3>PPh Pasal 23</h3>
+          <p>
+            Pajak atas penghasilan dari modal, penyerahan jasa, atau hadiah dan penghargaan, selain yang telah dipotong PPh Pasal 21.
+          </p>
         </div>
-        
-        {/* Tambahkan penjelasan PPh 22, 15, dan PPN disini */}
+        <div className="arrow">→</div>
+      </div>
+
+      <div className="tax-card purple">
+        <div className="icon">📄</div>
+        <div className="text">
+          <h3>PPh Final (Pasal 4 ayat 2)</h3>
+          <p>
+            Pajak penghasilan yang bersifat final atas jenis penghasilan tertentu seperti sewa tanah/bangunan, jasa konstruksi, dan hadiah undian.
+          </p>
+        </div>
+        <div className="arrow">→</div>
       </div>
     </div>
-  );
-};
+
+            
+            {/* Tambahkan penjelasan PPh 22, 15, dan PPN disini */}
+          </div>
+        </>
+      );
+    };
 
 export default Beranda;
