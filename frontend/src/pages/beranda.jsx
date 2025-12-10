@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../index.css";
-import { Award, Briefcase, Building, Globe, Percent, ShoppingCart } from "lucide-react";
+import { Award, Briefcase, Building, Calculator, FileText, Globe, Percent, ShoppingCart } from "lucide-react";
 
 const Beranda = () => {
   return (
@@ -15,12 +15,12 @@ const Beranda = () => {
         </p>
         <div className="hero-buttons">
           <Link to="/hitung" className="btn-primary-hero">
-            <span className="icon">🧮</span>
+        <div className="icon"><Calculator /></div>
             Mulai Hitung Pajak
           </Link>
 
           <Link to="/referensi" className="btn-outline-hero">
-            <span className="icon">📄</span>
+        <div className="icon"><FileText /></div>
             Pelajari Lebih Lanjut
           </Link>
         </div>
