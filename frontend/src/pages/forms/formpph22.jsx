@@ -86,7 +86,10 @@ const FormPph22 = () => {
 
           <div>
             <label className="form-label">Nilai Impor / Harga Jual / Beli (Bruto)</label>
+            <div className="input-group">
+                <span className="input-prefix">Rp</span>
             <input type="number" required value={bruto} onChange={(e) => setBruto(e.target.value)} className="form-input orange" placeholder="Masukkan nilai rupiah..." />
+            </div>
           </div>
 
           <button type="submit" disabled={loading} className="form-submit orange">

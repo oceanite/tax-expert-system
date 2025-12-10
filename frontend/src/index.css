@@ -645,3 +645,192 @@
     font-weight: bold;
     color: #059669; /* green-700 */
 }
+
+.form-card.green {
+    border-left-color: #16a34a; /* green-600 */
+    background: #f0fff4; /* green-50 */
+}
+
+.form-header.green {
+    border-bottom-color: #bbf7d0; /* green-200 */
+}
+
+.form-input.green:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+}
+
+.form-submit.green {
+    background: #16a34a; /* green-600 */
+}
+.form-submit.green:hover {
+    background: #15803d; /* green-700 */
+}
+
+.form-result.green {
+    background: #dcfce7; /* green-100 */
+    border-color: #86efac; /* green-300 */
+}
+.result-header.green {
+    color: #047857; /* green-800 */
+}
+.result-total.green {
+    border-top-color: #86efac;
+}
+.result-value.green {
+    color: #16a34a; /* green-600 */
+}
+
+.form-back-button.green {
+    color: #16a34a;
+}
+.form-back-button.green:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* --- STYLE UNTUK MENAMPILKAN TARIF PAJAK DI HASIL --- */
+.result-tax-rate {
+    text-align: right;
+    font-size: 12px;
+    color: #6b7280; /* gray-500 */
+    margin-top: 4px;
+}
+
+.form-card.purple {
+    border-left-color: #8b5cf6; /* purple-500 */
+    background: #fbf8ff; /* purple-50 */
+}
+
+.form-header.purple {
+    border-bottom-color: #ddd6fe; /* purple-200 */
+}
+
+.form-input.purple:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.form-submit.purple {
+    background: #8b5cf6; /* purple-600 */
+}
+.form-submit.purple:hover {
+    background: #7c3aed; /* purple-700 */
+}
+
+.form-result.purple {
+    background: #ede9fe; /* purple-100 */
+    border-color: #c4b5fd; /* purple-300 */
+}
+.result-header.purple {
+    color: #5b21b6; /* purple-800 */
+}
+.result-total.purple {
+    border-top-color: #c4b5fd;
+}
+.result-value.purple {
+    color: #7c3aed; /* purple-700 */
+}
+
+.form-back-button.purple {
+    color: #7c3aed;
+}
+.form-back-button.purple:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-prefix {
+    position: absolute;
+    left: 12px;
+    color: #6b7280; /* gray-500 */
+    font-size: 16px;
+}
+
+.input-group .form-input {
+    padding-left: 36px; /* Dorong input ke kanan agar ada ruang untuk Rp */
+}
+
+.form-helper-text {
+    font-size: 12px;
+    color: #9ca3af; /* gray-400 */
+    margin-top: 4px;
+}
+
+.result-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.result-detail-item span:first-child {
+    color: #4b5563; /* gray-600 */
+}
+.result-detail-item span:last-child {
+    font-family: monospace;
+    font-weight: 500;
+}
+.result-detail-item.pink-value span:first-child {
+    font-weight: bold;
+    color: #db2777; /* pink-600 */
+}
+.result-detail-item.pink-value span:last-child {
+    font-weight: bold;
+    color: #ec4899; /* pink-500 */
+}
+
+
+/* --- SKEMA WARNA KHUSUS (PINK untuk PPN) --- */
+
+.form-card.pink {
+    border-left-color: #ec4899; /* pink-500 */
+    background: #fdf2f8; /* pink-50 */
+}
+
+.form-header.pink {
+    border-bottom-color: #fbcfe8; /* pink-200 */
+}
+
+.form-input.pink:focus {
+    border-color: #ec4899;
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+}
+
+.form-submit.pink {
+    background: #ec4899; /* pink-500 */
+    border-color: #db2777;
+}
+.form-submit.pink:hover {
+    background: #db2777; /* pink-600 */
+}
+
+.form-result.pink {
+    background: #fce7f6; /* pink-100 */
+    border-color: #f0abfc; /* pink-300 */
+}
+.result-header.pink {
+    color: #be185d; /* pink-800 */
+}
+.result-total.pink {
+    border-top: 1px solid #f0abfc;
+    padding-top: 8px;
+    margin-top: 8px;
+}
+.result-value.pink {
+    color: #db2777; /* pink-600 */
+}
+
+.form-back-button.pink {
+    color: #db2777;
+}
+.form-back-button.pink:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}

@@ -46,40 +46,49 @@ const FormPph23 = () => {
 
   return (
     <div className="container mx-auto p-8 max-w-2xl">
-      <button onClick={() => navigate('/hitung')} className="mb-4 text-blue-600 hover:underline flex items-center">&larr; Kembali</button>
-      <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-green-500">
-        <h2 className="text-2xl font-bold mb-6 text-slate-800 border-b pb-4">Kalkulator PPh Pasal 23</h2>
+      <button onClick={() => navigate('/hitung')} className="form-back-button green">
+        &larr; Kembali ke Pilihan Pajak
+      </button>
+      
+      {/* Menggunakan class kustom 'form-card' dan skema warna 'green' */}
+      <div className="form-card green">
+        <h2 className="form-header green">
+          Kalkulator PPh Pasal 23
+        </h2>
         
         <form onSubmit={handleHitung} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Jenis Penghasilan</label>
-            <select value={jenis} onChange={(e) => setJenis(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-green-500 outline-none">
+            <label className="form-label">Jenis Penghasilan</label>
+            <select value={jenis} onChange={(e) => setJenis(e.target.value)} className="form-input green">
               {opsiPph23.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Jumlah Bruto (Rp)</label>
-            <input type="number" required value={bruto} onChange={(e) => setBruto(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-green-500 outline-none" placeholder="Contoh: 10000000" />
+            <label className="form-label">Jumlah Bruto (Rp)</label>
+            <div className="input-group">
+                <span className="input-prefix">Rp</span>
+            <input type="number" required value={bruto} onChange={(e) => setBruto(e.target.value)} className="form-input green" placeholder="Contoh: 10000000" />
+          </div>
           </div>
 
-          <button type="submit" disabled={loading} className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition font-bold mt-2">
-            Hitung PPh 23
+          <button type="submit" disabled={loading} className="form-submit green">
+            {loading ? "Menghitung..." : "Hitung PPh 23"}
           </button>
         </form>
 
         {hasil && (
-          <div className="mt-8 bg-green-50 p-6 rounded-md border border-green-200">
-            <h3 className="font-bold text-green-800 mb-2 text-lg">Hasil Perhitungan</h3>
-            <p className="text-gray-600 mb-4 text-sm">{hasil.keterangan}</p>
-            
-            <div className="flex justify-between items-center border-t border-green-200 pt-2">
-              <span className="text-gray-800 font-bold">Pajak Terutang:</span>
-              <span className="font-mono font-bold text-2xl text-green-700">
+          <div className="form-result green">
+            <h3 className="result-header green">Hasil Perhitungan</h3>
+            <p className="result-keterangan">{hasil.keterangan}</p>
+             
+            <div className="result-total green">
+              <span className="result-label">Pajak Terutang:</span>
+              <span className="result-value">
                 Rp {hasil.pajak_terutang.toLocaleString('id-ID')}
               </span>
             </div>
-            <div className="text-right text-xs text-gray-500 mt-1">
+            <div className="result-tax-rate">
               Tarif: {(hasil.tarif * 100)}%
             </div>
           </div>

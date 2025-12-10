@@ -69,6 +69,8 @@ const FormPph15 = () => {
 
           <div>
             <label className="form-label">Nilai Bruto / Penggantian</label>
+            <div className="input-group">
+                <span className="input-prefix">Rp</span>
             <input 
                type="number" 
                required 
@@ -77,6 +79,7 @@ const FormPph15 = () => {
                className="form-input yellow" // Gunakan form-input
                placeholder="Masukkan nilai rupiah..." 
             />
+            </div>
           </div>
 
           <button 

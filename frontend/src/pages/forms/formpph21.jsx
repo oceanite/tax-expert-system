@@ -73,11 +73,17 @@ const FormPph21 = () => {
             <h3 className="form-subtitle">Pendapatan</h3>
             <div>
               <label className="form-label">Gaji Pokok (Sebulan)</label>
+              <div className="input-group">
+                <span className="input-prefix">Rp</span>
               <input type="number" name="gaji_pokok_bulanan" required value={formData.gaji_pokok_bulanan} onChange={handleChange} className="form-input blue" placeholder="0" />
+              </div>
             </div>
             <div>
               <label className="form-label">Tunjangan Lainnya</label>
+              <div className="input-group">
+                <span className="input-prefix">Rp</span>
               <input type="number" name="tunjangan_lainnya" value={formData.tunjangan_lainnya} onChange={handleChange} className="form-input blue" placeholder="0" />
+              </div>
             </div>
           </div>
 
@@ -86,11 +92,17 @@ const FormPph21 = () => {
             <h3 className="form-subtitle">Pengurang & Status</h3>
             <div>
               <label className="form-label">Iuran JHT (Dibayar Pegawai)</label>
+              <div className="input-group">
+                <span className="input-prefix">Rp</span>
               <input type="number" name="iuran_jht_pegawai" value={formData.iuran_jht_pegawai} onChange={handleChange} className="form-input blue" placeholder="0" />
+              </div>
             </div>
             <div>
               <label className="form-label">Iuran JP (Dibayar Pegawai)</label>
+              <div className="input-group">
+                <span className="input-prefix">Rp</span>
               <input type="number" name="iuran_jp_pegawai" value={formData.iuran_jp_pegawai} onChange={handleChange} className="form-input blue" placeholder="0" />
+            </div>
             </div>
             <div>
               <label className="form-label">Status PTKP</label>
