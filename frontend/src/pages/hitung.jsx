@@ -52,7 +52,14 @@ const Hitung = () => {
           </a>
         ))}
       </div>
+
+      <footer className="main-footer">
+            <p className="footer-text">
+              © 2025 Pajakuy - Sistem Pakar Pajak Indonesia. Semua hak dilindungi.
+            </p>
+      </footer>
     </div>
+    
   );
 };
 
