@@ -162,7 +162,7 @@
 
 .tax-card {
   width: 90%;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 80px 1fr 40px; /* icon | text | arrow */
@@ -284,7 +284,7 @@
 .referensi-card {
     text-decoration: none;
     width: 90%;
-    max-width: 800px;
+    max-width: 900px;
 }
 
 .referensi-card .link-icon {
