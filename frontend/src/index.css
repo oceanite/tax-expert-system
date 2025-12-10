@@ -531,7 +531,7 @@
 }
 
 .form-back-button.blue:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
 }
 
@@ -575,7 +575,7 @@
     color: #f97316;
 }
 .form-back-button.orange:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
 }
 
@@ -685,7 +685,7 @@
     color: #16a34a;
 }
 .form-back-button.green:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
 }
 
@@ -736,7 +736,7 @@
     color: #7c3aed;
 }
 .form-back-button.purple:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
 }
 
@@ -831,6 +831,6 @@
     color: #db2777;
 }
 .form-back-button.pink:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
 }
