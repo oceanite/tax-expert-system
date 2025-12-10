@@ -3,6 +3,7 @@
 import { useNavigate } from 'react-router-dom';
 // Ikon yang digunakan
 import { Calculator, Briefcase, Building, Ship, ShoppingCart, Percent, ArrowRight } from 'lucide-react';
+import "../index.css";
 
 const taxes = [
   { id: 'pph21', name: 'PPh Pasal 21', desc: 'Gaji Karyawan, Pesangon', icon: <Briefcase />, color: 'blue' },

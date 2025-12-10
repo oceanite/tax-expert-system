@@ -341,3 +341,307 @@
     transform: translateX(10px);
     color: #0d6efd;
 }
+
+.form-card {
+  width: 90%;
+  max-width: 900px;
+  margin: 24px auto;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-left: 4px solid;
+    background: white;
+}
+
+.form-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom-width: 1px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: black;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-back-button {
+    display: flex;
+    align-items: center;
+    /* font-weight: 600; */
+    text-decoration: none;
+    margin: 24px auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Hasil Perhitungan */
+.form-result {
+    margin-top: 32px;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.result-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.result-keterangan {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+.result-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid;
+    padding-top: 8px;
+}
+
+.result-label {
+    color: black;
+    font-weight: bold;
+}
+
+.result-value {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.form-card.yellow {
+    border-left-color: #ca8a04;
+    background: #fffbeb;
+}
+
+.form-header.yellow {
+    border-bottom-color: #fde68a;
+}
+
+.form-input.yellow:focus {
+    border-color: #ca8a04;
+    box-shadow: 0 0 0 2px rgba(202, 138, 4, 0.2);
+}
+
+.form-submit.yellow {
+    background: #ca8a04;
+    border-color: #ca8a04;
+}
+.form-submit.yellow:hover {
+    background: #a16207;
+}
+
+.form-result.yellow {
+    background: #fffbeb;
+    border-color: #fcd34d;
+}
+.result-header.yellow {
+    color: #a16207;
+}
+.result-total.yellow {
+    border-top-color: #fcd34d;
+}
+.result-value.yellow {
+    color: #ca8a04;
+}
+
+.form-back-button.yellow {
+    color: #ca8a04;
+}
+.form-back-button.yellow:hover {
+    /* text-decoration: underline; */
+    font-weight: bold;
+}
+
+/* --- SKEMA WARNA KHUSUS (BLUE untuk PPh 21) --- */
+
+.form-card.blue {
+    border-left-color: #2563eb; /* blue-600 */
+    background: #eff6ff; /* blue-50 */
+}
+
+.form-header.blue {
+    border-bottom-color: #bfdbfe; /* blue-200 */
+}
+
+.form-input.blue:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.form-submit.blue {
+    background: #3b82f6; /* blue-600 */
+}
+.form-submit.blue:hover {
+    background: #2563eb; /* blue-700 */
+}
+
+.form-result.blue {
+    background: #dbeafe; /* blue-100 */
+    border-color: #93c5fd; /* blue-300 */
+}
+.result-header.blue {
+    color: #1e40af; /* blue-800 */
+    border-bottom-color: #bfdbfe;
+}
+.result-total.blue {
+    border-top-color: #bfdbfe;
+}
+.result-value.blue {
+    color: #3b82f6; /* blue-600 */
+}
+
+.form-back-button.blue {
+    color: #3b82f6;
+}
+
+.form-back-button.blue:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.form-card.orange {
+    border-left-color: #f97316; /* orange-600 */
+    background: #fff7ed; /* orange-50 */
+}
+
+.form-header.orange {
+    border-bottom-color: #fed7aa; /* orange-200 */
+}
+
+.form-input.orange:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+}
+
+.form-submit.orange {
+    background: #f97316; /* orange-600 */
+    border-color: #ea580c;
+}
+.form-submit.orange:hover {
+    background: #ea580c; /* orange-700 */
+}
+
+.form-result.orange {
+    background: #ffedd5; /* orange-100 */
+    border-color: #fdba74; /* orange-300 */
+}
+.result-header.orange {
+    color: #c2410c; /* orange-800 */
+}
+.result-total.orange {
+    border-top-color: #fdba74;
+}
+.result-value.orange {
+    color: #f97316; /* orange-600 */
+}
+
+.form-back-button.orange {
+    color: #f97316;
+}
+.form-back-button.orange:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.form-subtitle {
+    font-weight: 600;
+    color: #4b5563; /* gray-700 */
+    border-bottom: 1px solid #d1d5db; /* gray-300 */
+    padding-bottom: 8px;
+    margin: 12px auto;
+}
+
+/* Detail (Netto/PKP) */
+.result-detail {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 16px;
+}
+
+/* Summary Box (Pajak Setahun, Pajak Bulanan) */
+.result-summary {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid;
+    margin-top: 16px;
+}
+.result-summary.blue {
+    border-color: #bfdbfe; /* blue-200 */
+}
+
+.result-label-summary {
+    font-weight: bold;
+    color: #4b5563; /* gray-600 */
+}
+.result-value-summary {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 20px;
+    color: #3b82f6; /* blue-600 */
+    text-align: right;
+}
+
+/* Take Home Pay (THP) */
+.result-take-home-pay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb; /* gray-200 */
+}
+
+.result-take-home-pay.blue {
+    border-top-color: #bfdbfe; /* blue-200 */
+}
+
+.result-label-thp {
+    font-weight: bold;
+    color: #10b981; /* green-600 */
+    font-size: 14px;
+}
+.result-value-thp {
+    font-family: monospace;
+    font-weight: bold;
+    color: #059669; /* green-700 */
+}

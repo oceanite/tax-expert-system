@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../../index.css";
 
 const FormPph15 = () => {
   const navigate = useNavigate();
@@ -43,37 +44,58 @@ const FormPph15 = () => {
   };
 
   return (
-    <div className="container mx-auto p-8 max-w-2xl">
-      <button onClick={() => navigate('/hitung')} className="mb-4 text-blue-600 hover:underline flex items-center">&larr; Kembali</button>
-      <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-indigo-500">
-        <h2 className="text-2xl font-bold mb-6 text-slate-800 border-b pb-4">Kalkulator PPh Pasal 15</h2>
-        
+   <div className="container mx-auto p-8 max-w-2xl">
+      <button onClick={() => navigate('/hitung')} className="form-back-button yellow">
+        &larr; Kembali ke Pilihan Pajak
+      </button>
+
+      {/* Menggunakan class kustom baru 'form-card' dan skema warna 'yellow' */}
+      <div className="form-card yellow">
+        <h2 className="form-header yellow">
+          Kalkulator PPh Pasal 15
+        </h2>
+
         <form onSubmit={handleHitung} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Kategori Kegiatan</label>
-            <select value={jenis} onChange={(e) => setJenis(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+            <label className="form-label">Kategori Kegiatan</label>
+            <select 
+               value={jenis} 
+               onChange={(e) => setJenis(e.target.value)} 
+               className="form-input yellow" // Gunakan form-input
+            >
               {opsiPph15.map((opt, idx) => <option key={idx} value={opt}>{opt}</option>)}
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Nilai Bruto / Penggantian</label>
-            <input type="number" required value={bruto} onChange={(e) => setBruto(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Masukkan nilai rupiah..." />
+            <label className="form-label">Nilai Bruto / Penggantian</label>
+            <input 
+               type="number" 
+               required 
+               value={bruto} 
+               onChange={(e) => setBruto(e.target.value)} 
+               className="form-input yellow" // Gunakan form-input
+               placeholder="Masukkan nilai rupiah..." 
+            />
           </div>
 
-          <button type="submit" disabled={loading} className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition font-bold mt-2">
+          <button 
+               type="submit" 
+               disabled={loading} 
+               className="form-submit yellow"
+            >
             Hitung PPh 15
           </button>
         </form>
 
         {hasil && (
-          <div className="mt-8 bg-indigo-50 p-6 rounded-md border border-indigo-200">
-            <h3 className="font-bold text-indigo-800 mb-2 text-lg">Hasil Perhitungan</h3>
-            <div className="text-sm text-gray-600 mb-4 italic">{hasil.keterangan}</div>
-            
-            <div className="flex justify-between items-center border-t border-indigo-200 pt-2">
-              <span className="text-gray-800 font-bold">Pajak Terutang:</span>
-              <span className="font-mono font-bold text-xl text-indigo-700">
+          <div className="form-result yellow">
+            <h3 className="result-header">Hasil Perhitungan</h3>
+            <div className="result-keterangan">{hasil.keterangan}</div>
+
+            <div className="result-total yellow">
+              <span className="result-label">Pajak Terutang:</span>
+              <span className="result-value">
                 Rp {hasil.pajak_terutang.toLocaleString('id-ID')}
               </span>
             </div>
@@ -83,5 +105,4 @@ const FormPph15 = () => {
     </div>
   );
 };
-
 export default FormPph15;

@@ -57,68 +57,74 @@ const FormPph21 = () => {
 
   return (
     <div className="container mx-auto p-8 max-w-3xl">
-      <button onClick={() => navigate('/hitung')} className="mb-4 text-blue-600 hover:underline flex items-center">&larr; Kembali</button>
-      <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-blue-500">
-        <h2 className="text-2xl font-bold mb-6 text-slate-800 pb-4 border-b">Kalkulator PPh Pasal 21</h2>
-        
+      <button onClick={() => navigate('/hitung')} className="form-back-button blue">
+        &larr; Kembali ke Pilihan Pajak
+      </button>
+
+      {/* Menggunakan class kustom 'form-card' dan skema warna 'blue' */}
+      <div className="form-card blue">
+        <h2 className="form-header blue">
+          Kalkulator PPh Pasal 21
+        </h2>
+         
         <form onSubmit={handleHitung} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Kolom Kiri: Pendapatan */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-gray-700 border-b pb-2">Pendapatan</h3>
+            <h3 className="form-subtitle">Pendapatan</h3>
             <div>
-              <label className="block text-sm font-medium mb-1">Gaji Pokok (Sebulan)</label>
-              <input type="number" name="gaji_pokok_bulanan" required value={formData.gaji_pokok_bulanan} onChange={handleChange} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0" />
+              <label className="form-label">Gaji Pokok (Sebulan)</label>
+              <input type="number" name="gaji_pokok_bulanan" required value={formData.gaji_pokok_bulanan} onChange={handleChange} className="form-input blue" placeholder="0" />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Tunjangan Lainnya</label>
-              <input type="number" name="tunjangan_lainnya" value={formData.tunjangan_lainnya} onChange={handleChange} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0" />
+              <label className="form-label">Tunjangan Lainnya</label>
+              <input type="number" name="tunjangan_lainnya" value={formData.tunjangan_lainnya} onChange={handleChange} className="form-input blue" placeholder="0" />
             </div>
           </div>
 
           {/* Kolom Kanan: Pengurang & Status */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-gray-700 border-b pb-2">Pengurang & Status</h3>
+            <h3 className="form-subtitle">Pengurang & Status</h3>
             <div>
-              <label className="block text-sm font-medium mb-1">Iuran JHT (Dibayar Pegawai)</label>
-              <input type="number" name="iuran_jht_pegawai" value={formData.iuran_jht_pegawai} onChange={handleChange} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0" />
+              <label className="form-label">Iuran JHT (Dibayar Pegawai)</label>
+              <input type="number" name="iuran_jht_pegawai" value={formData.iuran_jht_pegawai} onChange={handleChange} className="form-input blue" placeholder="0" />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Iuran JP (Dibayar Pegawai)</label>
-              <input type="number" name="iuran_jp_pegawai" value={formData.iuran_jp_pegawai} onChange={handleChange} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0" />
+              <label className="form-label">Iuran JP (Dibayar Pegawai)</label>
+              <input type="number" name="iuran_jp_pegawai" value={formData.iuran_jp_pegawai} onChange={handleChange} className="form-input blue" placeholder="0" />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Status PTKP</label>
-              <select name="status_ptkp" value={formData.status_ptkp} onChange={handleChange} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none">
+              <label className="form-label">Status PTKP</label>
+              <select name="status_ptkp" value={formData.status_ptkp} onChange={handleChange} className="form-input blue">
                 {opsiPTKP.map(opt => <option key={opt} value={opt}>{opt}</option>)}
               </select>
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="col-span-1 md:col-span-2 bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-bold mt-4">
+          <button type="submit" disabled={loading} className="col-span-1 md:col-span-2 form-submit blue">
             {loading ? "Menghitung..." : "Hitung PPh 21"}
           </button>
         </form>
 
         {hasil && (
-          <div className="mt-8 bg-blue-50 p-6 rounded-md border border-blue-200 animate-fade-in">
-            <h3 className="font-bold text-blue-800 mb-4 text-lg border-b border-blue-200 pb-2">Hasil Perhitungan (Setahun)</h3>
-            <div className="grid grid-cols-2 gap-y-2 text-sm text-gray-700 mb-4">
+          <div className="form-result blue">
+            <h3 className="result-header blue">Hasil Perhitungan (Setahun)</h3>
+            <div className="result-detail">
               <span>Penghasilan Netto:</span> <span className="text-right font-mono">Rp {hasil.netto_setahun.toLocaleString('id-ID')}</span>
               <span>PKP:</span> <span className="text-right font-mono">Rp {hasil.pkp_setahun.toLocaleString('id-ID')}</span>
             </div>
-            
-            <div className="bg-white p-4 rounded border border-blue-100">
+             
+            <div className="result-summary blue">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-gray-600">Pajak Setahun:</span>
-                <span className="font-mono font-bold text-lg text-blue-600">Rp {hasil.total_pajak_setahun.toLocaleString('id-ID')}</span>
+                <span className="result-label-summary">Pajak Per Tahun:</span>
+                <span className="text-right result-value-summary">Rp {hasil.total_pajak_setahun.toLocaleString('id-ID')}</span>
               </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-500">Pajak Per Bulan:</span>
-                <span className="font-mono text-gray-600">Rp {hasil.pajak_bulanan.toLocaleString('id-ID')}</span>
+              <div className="flex justify-between items-center mb-2">
+                <span className="result-label-summary">Pajak Per Bulan:</span>
+                <span className="result-value-summary">Rp {hasil.pajak_bulanan.toLocaleString('id-ID')}</span>
               </div>
-              <div className="flex justify-between items-center text-sm mt-2 pt-2 border-t">
-                <span className="font-bold text-green-600">Gaji Bersih (Take Home Pay):</span>
-                <span className="font-mono font-bold text-green-700">Rp {hasil.gaji_bersih_bulanan.toLocaleString('id-ID')}</span>
+              <div className="result-take-home-pay">
+                <span className="result-label-thp">Gaji Bersih (Take Home Pay):</span>
+                <span className="result-value-thp">Rp {hasil.gaji_bersih_bulanan.toLocaleString('id-ID')}</span>
               </div>
             </div>
           </div>

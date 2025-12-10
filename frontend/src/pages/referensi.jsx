@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Briefcase, Percent, Building, BookOpen, ExternalLink, Globe, Plane } from 'lucide-react';
+import "../index.css";
 
 const Referensi = () => {
     const dataReferensi = [
